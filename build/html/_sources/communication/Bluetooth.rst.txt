@@ -1,0 +1,27 @@
+Bluetooth
+=========
+
+.. figure:: image/ble.svg.hi.png
+   :align: center
+
+BLE
+---
+
+Bluetooth Low Energy is also called as BLE and Bluetooth Smart. When Bluetooth released the the Bluetooth 4.0 core specification, they introduced BLE . The BLE was actually started by Nokia, as a project once called “Wibree”, and was introduced in 2006 under that certain name. In 2010, the Bluetooth Special Interest Group merged Wibree into the Bluetooth standard as a part of the 4.0 core specification. Although it is a part of the same specification, BLE alone is not backwards compatible with Bluetooth, and so we can not treat it as the same protocol as Bluetooth.
+
+Protocol
+^^^^^^^^
+**Blueetooth low Energy** is the protocol used for communication. nRF51822 is the module used in BitGuard Flex. Now we will define features of Bluetooth Low Energy protocol.
+
+**Features**	
+	* Frequency range      : 2.400–2.483 GHz
+	* Frequency         	  : FHSS
+	* Supported topologies : Peer-to-peer, star
+	* Band 				  : ISM
+	* Security			  : 128-bit AES
+	* Data rate			  : 2 Mbps,1 Mbps,500 kbps,125 kbps
+	* Effective throughput : Up to 1.4 Mbps
+
+Profile
+^^^^^^^
+**Generic Attribute Profile (GATT)**—The GATT profile is a general specification for sending and receiving short pieces of data known as "attributes" over a BLE link. All current Low Energy application profiles are based on GATT. We are using this profile for communication. GATT is built on top of the Attribute Protocol (ATT). This is also referred to as GATT/ATT. ATT is optimized to run on BLE devices. To this end, it uses as few bytes as possible. Each attribute is uniquely identified by a Universally Unique Identifier (UUID), which is a standardized 128-bit format for a string ID used to uniquely identify information. The attributes transported by ATT are formatted as characteristics and services. Maximum data that can be send at once is **20 bytes** .

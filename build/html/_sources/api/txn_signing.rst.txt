@@ -1,0 +1,154 @@
+Sign Transactions
+=================
+
+Once, Bitguard hardware is initialized then you can get public address of a coin from bitGuard. Follow the following steps to start transaction signing process.
+
+Initialize Transaction Signing
+------------------------------
+
+This command will be used to initiate a transaction signing procedure.
+
+	========= ==================================================== ================================================== =======================
+	Command	   Procedure				                           Device Side Process	    						   Response 
+	========= ==================================================== ================================================== =======================
+	**0x03**  Send 0x03 to initialize transaction signing process    Not required   
+																													   * type    : "txn_sig" 
+																													   * status  : true
+																													   
+																													   * req     : "ticker"
+	========= ==================================================== ================================================== =======================
+
+	 **Response JSON Object:**   	
+		* **type(string)** : Type of procedure.
+		* **status(boolean)** : Gives the success or failure status.
+		* **req(string)**   : Gives type of request data in this case it is "ticker" of the coin.
+
+	  **Example response**:
+
+	    .. sourcecode:: js
+
+	    	{
+	    	  type 	: "txn_sig",
+	    	  status : true,
+	    	  req    : "ticker"
+	    	}
+
+
+Coin Selection
+--------------
+
+	========= ==================================================== ================================================== =======================
+	Command	   Procedure				                           Device Side Process	    						   Response 
+	========= ==================================================== ================================================== =======================
+	**<BTC>** Send ticker to get the public address of that coin.
+			  				                                         Not required                                       
+			  																										   * coin    : "BTC" 
+																													   * status  : true
+																													   * req     : "count"
+																													   * type    : "txn_sig"			 				                           
+	========= ==================================================== ================================================== =======================
+
+	  **Response JSON Object:**   	
+		 * **type(string)** : Type of procedure.
+		 * **status(boolean)** : Gives the success or failure status.
+		 * **coin(string)**   : Gives the ticker of the coin being queried.
+		 * **req(string)** : Request for the count of the outputs of the transaction to be signed.
+
+		**Example response**:
+
+		    .. sourcecode:: js
+
+		    	{
+		    	  coin 	: "BTC",
+		    	  req : "count",
+		    	  status  : true,
+		    	  type    : "pub_add" 
+		    	}
+
+Updating No of Inputs
+----------------------
+
+The fundamental building block of a bitcoin transaction is a transaction output. Transaction outputs are indivisible chunks of bitcoin currency, recorded on the blockchain, and recognized as valid by the entire network. Bitcoin full nodes track all available and spendable outputs, known as unspent transaction outputs, or UTXO. The collection of all UTXO is known as the UTXO set and currently numbers in the millions of UTXO. The UTXO set grows as new UTXO is created and shrinks when UTXO is consumed. Every transaction represents a change (state transition) in the UTXO set. For further study please refer `here <https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch06.asciidoc>`_.
+
+Transaction inputs identify which UTXO will be consumed and provide proof of ownership through an unlocking script.To build a transaction, a wallet selects from the UTXO it controls, UTXO with enough value to make the requested payment. Sometimes one UTXO is enough, other times more than one is needed. For each UTXO that will be consumed to make this payment, the wallet creates one input pointing to the UTXO and unlocks it with an unlocking script.
+
+
+	========= ==================================================== ================================================== =======================
+	Command	   Procedure				                           Device Side Process	    						   Response 
+	========= ==================================================== ================================================== =======================
+	**<100>** Send number of inputs.
+			  				                                         Press B1 on BitGuard
+			  				                                         												   
+																													   * status  : true
+																													   * count     : 100
+																													   * type    : "txn_sig"	 
+																													   * req    : "txn_hash"	
+																													   *  coin    : "BTC" 	                           
+	========= ==================================================== ================================================== =======================
+
+	  **Response JSON Object:**   	
+		 * **type(string)** : Type of procedure.
+		 * **status(boolean)** : Gives the success or failure status.
+		 * **coin(string)**   : Gives the ticker of the coin being queried.
+		 * **count(string)** : Gives updated count of outputs.
+		 * **req(string)** : Requests Transaction hash (raw transaction should be hashed using sha256).
+
+		**Example response**:
+
+		    .. sourcecode:: js
+
+		    	{
+		    	  coin 	: "BTC",
+		    	  count : 100,
+		    	  status  : true,
+		    	  type    : "txn_sig",
+		    	  req  :  "txn_hash"
+		    	}
+
+	.. note::
+   		There is no threshold for **count** in this API.
+
+
+Signing Raw Transaction Hash
+----------------------------
+
+This command is used to sign the SHA256 of the transaction that is build for every INPUT one by one. Please follow the commands for further clarification.
+
+	========= ==================================================== ================================================== =======================
+	Command	   Procedure				                           Device Side Process	    						   Response 
+	========= ==================================================== ================================================== =======================
+	**<txn>**  Replace "txn" with the hash of raw transaction
+			  				                                         Not required                                       
+			  																										   * coin    : "BTC" 
+																													   * status  : true
+																													   * count     : 99
+																													   * type    : "txn_sig"	 
+																													   * req    : "txn_hash"		* sig : string 
+																													   * sig_complete : boolean                                       
+	========= ==================================================== ================================================== =======================
+
+	  **Response JSON Object:**   	
+		 * **type(string)** : Type of procedure.
+		 * **status(boolean)** : Gives the success or failure status.
+		 * **coin(string)**   : Gives the ticker of the coin being queried.
+		 * **count(string)** : Gives updated count of outputs. Count will be decremented every time transaction is signed for one output.
+		 * **req(string)** : Requests Transaction hash (raw transaction should be hashed using sha256).
+		 * **sig(string)** : This will contain the signed transaction in DER format. 
+		 * **sig_complete(boolean)** : This field becomes **true** once all the INPUTS are signed and count becomes zero. 
+
+		**Example response**:
+
+		    .. sourcecode:: js
+
+		    	{
+		    	  coin 	: "BTC",
+		    	  count : 100,
+		    	  status  : true,
+		    	  type    : "txn_sig",
+		    	  req  :  "txn_hash",
+		    	  sig  :  "263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0",
+		    	  sig_complete : false
+		    	}
+
+
+

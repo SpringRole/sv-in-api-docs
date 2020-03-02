@@ -1,0 +1,28 @@
+Reset Transaction Signing
+=========================
+
+If transaction is initialized and you want to reset follow these steps to get out of the signing process.
+
+
+    ========= ==================================================== ========================== =======================
+    Command    Procedure                                           Device Side Process         Response 
+    ========= ==================================================== ========================== =======================
+    **0xFF**  Send 0xFF to reset transaction signing process            Not required   
+                                                                                               * type:"reset" 
+                                                                                               * status : true
+                                                                                                                       
+    ========= ==================================================== ========================== =======================
+
+     **Response JSON Object:**      
+        * **type(string)** : Gives reset in this case.
+        * **Status(boolean)** : True or False for reset success or failure respectively. 
+        
+
+      **Example response**:
+
+        .. sourcecode:: js
+
+            {
+              type  : "reset",
+              status : true
+            }

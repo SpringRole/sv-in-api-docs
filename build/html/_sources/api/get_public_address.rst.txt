@@ -1,0 +1,66 @@
+Get Address
+===========
+
+Once, Bitguard hardware is initialized then you can get public address of a coin from bitGuard. Follow the following steps to get public address.
+
+Initialize Address Request 
+--------------------------
+
+	========= ==================================================== ================================================== =======================
+	Command	   Procedure				                           Device Side Process	    						   Response 
+	========= ==================================================== ================================================== =======================
+	**0x01**  Send 0x01 to initialize public address process    	Not required   
+																													   * type    : "pub_add" 
+																													   * status  : true
+																													   
+																													   * req     : "ticker"
+	========= ==================================================== ================================================== =======================
+
+	 **Response JSON Object:**   	
+		* **type(string)** : Type of procedure.
+		* **status(boolean)** : Gives the success or failure status.
+		* **req(string)**   : Gives type of request data in this case it is "ticker" of the coin.
+
+	  **Example response**:
+
+	    .. sourcecode:: js
+
+	    	{
+	    	  type 	: "pub_add",
+	    	  status : true,
+	    	  req    : "ticker"
+	    	}
+
+
+Coin Selection
+--------------
+
+This API will return public address in WIF form. Refer `this link <https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch04.asciidoc>`_ for information about public addresses.
+
+	========= ==================================================== ================================================== =======================
+	Command	   Procedure				                           Device Side Process	    						   Response 
+	========= ==================================================== ================================================== =======================
+	**<BTC>** Send ticker to get the public address of that coin.
+			  				                                         Not required                                       
+			  																										   * coin    : "BTC" 
+																													   * status  : true
+																													   * pub_add : string
+																													   * type    : "pub_add"			 				                           
+	========= ==================================================== ================================================== =======================
+
+	  **Response JSON Object:**   	
+	    * **type(string)** : Type of procedure.
+	    * **status(boolean)** : Gives the success or failure status.
+	    * **coin(string)**   : Gives the ticker of the coin being queried.
+	    * **pub_add(string)** :Gives the public address in string format.
+
+		**Example response**:
+
+		    .. sourcecode:: js
+
+		    	{
+		    	  coin 	: "BTC",
+		    	  pub_add : "1BoatSLRHtKNngkdXEeobR76b53LETtpyT",
+		    	  status  : true,
+		    	  type    : "pub_add" 
+		    	}

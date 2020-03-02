@@ -1,0 +1,79 @@
+Error Cases
+===========
+
+Locked Device
+-------------
+
+If PIN is not entered and device is still locked then any command send will have following response.
+
+	=============== ============================================
+	 ERROR CASES   	 RESPONSE
+	=============== ============================================ 
+	 Device locked   
+	 				 * error : true
+	 				 * case : "device_locked"
+	 				 * status : false 
+	=============== ============================================
+
+	**Example response**:
+
+	    .. sourcecode:: js
+
+	    	{
+	    	  error : true,
+	    	  status : false,
+	    	  case : "device_locked"
+	    	} 	
+
+Incorrect Ticker
+----------------
+
+If ticker is not support or incorrect then this error will have following response.
+
+	================== ============================================
+	 ERROR CASES   	 	RESPONSE
+	================== ============================================ 
+	 Incorrect Ticker   
+	 				 	* error : true
+	 				 	* case : "incorrect_ticker"
+	 				 	* status : false 
+	================== ============================================
+
+	**Example response**:
+
+	    .. sourcecode:: js
+
+	    	{
+	    	  error : true,
+	    	  status : false,
+	    	  case : "incorrect_ticker"
+	    	} 	
+
+
+Incorrect Command
+-----------------
+
+This is the default error. Whenever wrong command is sent or something abnormal has happened this case will have the following error.
+
+	================== ============================================
+	 ERROR CASES   	 	RESPONSE
+	================== ============================================ 
+	 Wrong Command   
+	 				 	* error : true
+	 				 	* case : "default"
+	 				 	* status : false 
+	================== ============================================
+
+	**Example response**:
+
+	    .. sourcecode:: js
+
+	    	{
+	    	  error : true,
+	    	  status : false,
+	    	  case : "default"
+	    	}
+
+
+.. note::
+   If device shutdowns because of any reason then any previous command running will be lost. Once device restarts then start the command again after unlocking the device. 	

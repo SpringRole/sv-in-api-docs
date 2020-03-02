@@ -1,4 +1,0 @@
-Introduction
-============
-
-In this chapter we will walk you through the types of communication modes used buy BitGuard hardware. Flex uses BLE (bluetooth 4.0) and USB c-type, Iron uses only USB c-type. At the hardware end microcontroller receives data through UART (universal asynchronous receiver transmitter) serially. Updating the firmware will only work through USB c-type. We will update soon on how to update the firmware using USB. We have our own bootloader which will be used to update the firmware. The integrity of firmware will be verified by secure element.

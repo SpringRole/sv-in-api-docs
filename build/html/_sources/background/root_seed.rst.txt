@@ -1,7 +1,0 @@
-Root Seed
-=========
-
-Root Seed is required to generate HD wallet and it should be generated using Cryptographically secure pseudorandom number generator. The element generating Root seed should be separated from external world. If it is compromised then your wallet can be breached or hacked in future.
-
-Bitguard is achieveing Secure Root Seed generation by using `ATSHA204A <http://ww1.microchip.com/downloads/en/DeviceDoc/ATSHA204A-Data-Sheet-40002025A.pdf>`_.The ATSHA204A is a member of the Atmel CryptoAuthentication™ family of high-security hardware authentication devices. It generates Highly-quality and secure Random Number. 
-

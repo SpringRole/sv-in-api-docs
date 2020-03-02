@@ -1,5 +1,0 @@
-Introduction
-============
-
-We currently have two environments, development and production. Both the environments have seprate databases. During development base url of development environment must be used.
-

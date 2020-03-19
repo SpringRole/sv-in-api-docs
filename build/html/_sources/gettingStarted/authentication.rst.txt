@@ -25,10 +25,8 @@ This API is used to login into the platform. We use Json Web Token for authentic
 	.. code::
 
 		{
-			"message": "logged in successfully",
-			"data": {
-				"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiamFja2h5bTIzQGdtYWlsLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MjU1MjcyOCwiZXhwIjoxNTg2MTUyNzI4fQ.7zs45ogp_Rcma7sJkzNcH5cnZ6gMQK-NXZjbxDsyFJw"
-			}
+			"msg": "User logged in successfully",
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6MiwidXNlcklkIjo5MSwiY29tcGFueU5hbWUiOiJteWZha2VpY28gdGVzdGluZyBjbyAuaW4gW1BWVCBMRFRdIn0sImlhdCI6MTU4NDYxNTc5MywiZXhwIjoxNTg4MjE1NzkzfQ.ieVyXxv79SBLSaLWwJOwuzscFBlZfdF71CIZQ22B9_s"
 		}
 
 **Query Parameters**
@@ -39,7 +37,6 @@ This API is used to login into the platform. We use Json Web Token for authentic
 **Response Parameters**
 
 	* message (string): Success message. 
-	* data (Object): Contains data of success response.
 	* token (string): Used as bearer token in add candidate API.
 
 Add Candidate
@@ -93,45 +90,14 @@ This API is used to select the types of check this candidate should go through.
 	.. code::
 
 		{
-	    "message": "Candidate registered, token shared for further communication of {Anurag Sandhu}",
-	    "body": {
-	        "name": "Anurag Sandhu",
-	        "email": "anurag.sandhu@springrole.com",
-	        "consentUrl": "https://springverify-assets.s3.amazonaws.com/ccl_1574149640_332.pdf",
-	        "verifications": {
-	            "identity": {
-	                "pan": true,
-	                "drivingLicense": true,
-	                "passport": true,
-	                "voterId": true
-	            },
-	            "address": {
-	                "current": false,
-	                "permanent": false
-	            },
-	            "education": {
-	                "10": true,
-	                "12": true,
-	                "bachelor": false,
-	                "masters": true,
-	                "doctorate": true
-	            },
-	            "workExperience": {
-	                "employments": 1
-	            },
-	            "criminalRecord": {
-	                "current": false,
-	                "permanent": false
-	            }
-	        }
-	    },
-	    "uuid": "57e7423d-5ed0-46d9-9d6b-f96255362c40",
-	    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozNjUsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODI4OTA1NDJ9.NqSLyvSicWdvSHEJcS8C3-Q1DAS4N45HtaUlO1ICT0U"
+		"message": "Candidate registered, token shared for further communication of {Anurag Sandhu}",
+		"uuid": "8b32cd73-7426-45ed-bc4d-50516ad15ad0",
+		"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozODEsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODQ2MTY0NTR9.CYYjDgp5kmRBxtbQpFmsaP2JB46Fct4yBOOmeW27rQc"
 		}
 
 **Query Parameters**
 	
-	* identity (Object): Used to provide types of checks selected.
+	* Identity (Object): Used to provide types of checks selected.
 		
 		**Object Keys**
 			- pan (Boolean)
@@ -139,13 +105,13 @@ This API is used to select the types of check this candidate should go through.
 			- voterId (Boolean)
 			- drivingLicense (Boolean)
 
-	* address (Object): Used to provide what type of aaddress is being stored.
+	* Address (Object): Used to provide what type of aaddress is being stored.
 		
 		**Object Keys**
 			- current (Boolean)
 			- permanent (Boolean)
 
-	* education (Object): Used to provide types of education checks selected.
+	* Education (Object): Used to provide types of education checks selected.
 		
 		**Object Keys**
 			- 10 (Boolean)
@@ -154,12 +120,12 @@ This API is used to select the types of check this candidate should go through.
 			- masters (Boolean)
 			- doctorate (Boolean)
 
-	* workExperience (Object): Used to provide types of work experience selected.
+	* WorkExperience (Object): Used to provide types of work experience selected.
 		
 		**Object Keys**
 			- employments (Intiger): count of the employments candidate has.
 
-	* criminalRecord (Object): Used to provide on which address to run criminal check.
+	* CriminalRecord (Object): Used to provide on which address to run criminal check.
 		
 		**Object Keys**
 			- current (Boolean)
@@ -168,13 +134,21 @@ This API is used to select the types of check this candidate should go through.
 **Response Parameters**
 
 	* message (string): Success message.
-	* data (Object): Contains the request in the response and token.
+			FOR: Making the operation more meaningful [No need to save] 
+	* uuid (string): Contains the unique id for the candidate.
+			FOR: This will be used while fetching the candidate from springverify [Saving Required]
 	* token (string): This token is candidate specific. For further api's this token will be used.
+			FOR: No Expiration Time [Saving Required]
 
-Identity Verification
+	
+Identity Upload/Verification
 ---------------------
 
-This API returns the ocr result of the identity document uploaded. 
+This API saves the document uploaded into SV DB.
+	SCENARIO 1: If company has opted for Identity Verification Automatic service and sending front(Not Array of docs), it will verify the ID internally(Asyncronously)
+				Response from this can be fetched after 3-5 min.
+	SCENARIO 2: If company has not opted for Identity Verification Automatic service, it will save the ID's in DB.
+				Response will be returned immediately.
 
 .. note::
 	 Please give the image url in this API.
@@ -182,30 +156,56 @@ This API returns the ocr result of the identity document uploaded.
 
 **Currenly Supported Docs**
 	
-	* DRIVING LICENSE.
-	* PAN
-	* PASSPORT
-	* VOTER ID 
+	* DRIVING LICENSE (type : ind_driving_license)
+	* PAN (type : ind_pan)
+	* PASSPORT (type : ind_passport)
+	* VOTER ID (type : ind_voter_id)
 
 **Path** : /v1/documents/identity
 
 **Method** : POST
 
 **Example Request**
- 	.. code::
-		
-		curl --location --request POST 'http://api-dev.in.springverify.com/v1/documents/identity' \
-		--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozMjMsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODAzODUxMjN9.dInOuPThk52E7KLh1084zpxyfcWyYQQAPYiD9b2d05w' \
-		--form 'type=ind_driving_license' \
-		--form 's3Front=https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front' \
-		--form 's3Back=https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front'
+
+		.. code::
+			
+			curl --location --request POST 'http://api-dev.in.springverify.com/v1/documents/identity' \
+			--header 'Content-Type: application/json' \
+			--data-raw '{
+			"type": "ind_driving_license",
+			"docs": ["https://springverify-assets-id.s3.amazonaws.com/323/*********-front", "https://springverify-assets-id.s3.amazonaws.com/323/*********--front"]
+			}'
+
+		OR
+
+		.. code::
+			
+			curl --location --request POST 'http://api-dev.in.springverify.com/v1/documents/identity' \
+			--header 'Content-Type: application/json' \
+			--data-raw '{
+			"type" : "ind_voter_id",
+			"front": "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
+			"back": "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
+			}'
+
+		OR (Back is optional)
+			
+		.. code::
+			
+			curl --location --request POST 'http://api-dev.in.springverify.com/v1/documents/identity' \
+			--header 'Content-Type: application/json' \
+			--data-raw '{
+			"type" : "ind_voter_id",
+			"front": "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
+			}'
+		NOTE: Identity Verification Automatic can not applied to DOCS Array's payload. (Not to CURL 1)
 
 **Example Response**
 	.. code::
 
 		{
-			"message": "identity doc uploaded succesfully",
-			"data": {}
+		"message": "Identity saved",
+		"uuid": [ "9fd58e5d-cee5-4b7b-9ef3-6eb446d952aa" ]
 		}
 
 **Query Parameters**
@@ -218,12 +218,13 @@ This API returns the ocr result of the identity document uploaded.
 			- ind_voter_id
 			- ind_pan
 
-	* s3Front (string): front side of the identity doc.
-	* s3Back (String): back of the identity doc. (optional field)
 
 **Response Parameters**
 
 	* message (string): Success message.
+			FOR: Making the operation more meaningful [No need to save] 
+	* uuid (string): Contains the unique id for the identity saved in DB.
+			[Saving is your choice.]
 
 
 Add Employment
@@ -261,9 +262,9 @@ This API is used to add employment details and docs.
 		            "currentlyHere": true,
 		            "startDate": "25/11/19",
 		            "s3Links" : [
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
+		            "https://springverify-assets-id.s3.amazonaws.com/***/ind_driving_license-front",
+		            "https://springverify-assets-id.s3.amazonaws.com/***/ind_driving_license-front",
+		            "https://springverify-assets-id.s3.amazonaws.com/***/ind_driving_license-front"
 		            ]
 		        }
 		    ]
@@ -274,21 +275,7 @@ This API is used to add employment details and docs.
 
 		{
 		    "message": "Employment saved",
-		    "response": [
-		        {
-		            "document_type": "ABC",
-		            "companyName": "ABC",
-		            "designation": "1",
-		            "currentlyHere": true,
-		            "startDate": "25/11/19",
-		            "s3Links": [
-		                "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
-		                "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
-		                "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
-		            ],
-		            "uuid": "04c537a5-2fe9-43f9-bac6-bf7e4f98f861"
-		        }
-		    ]
+		    "uuid": [04c537a5-2fe9-43f9-bac6-bf7e4f98f861, 04c537a5-2fe9-43f9-bac6-bf7e4f98f861, 04c537a5-2fe9-43f9-bac6-bf7e4f98f861  ]
 		}
 
 **Query Parameters**
@@ -302,17 +289,81 @@ This API is used to add employment details and docs.
 			- AppointmentLetter
 			- Other
 
-	* companyName (string): name of the company where candidate was working.
-	* designation (String): designation of the candidate.
-	* currentlyHere (Boolean): true for currently working here.
-	* startDate (String): Format dd/mm/yy.
-	* s3Links (Array): Array of employment doc's links.
+	* CompanyName (string): name of the company where candidate was working.
+	* Designation (String): designation of the candidate.
+	* CurrentlyHere (Boolean): true for currently working here.
+	* StartDate (String): Format dd/mm/yy.
+	* S3Links (Array): Array of employment doc's links.
 
 **Response Parameters**
 
 	* message (string): Success message.
-	* response (object): It contains the request object.
+	* uuid (string): Contains the unique id for the Employment saved in DB.
+			[Saving is your choice.]
 
+Add Address
+--------------
+
+This API is used to add Address details and docs.
+
+.. note::
+	 Please give the image url in this API.
+	 Use the token which was returned after add candidate API.
+
+**Currenly Supported Docs**
+	
+	* Aadhaar Card
+	* Voter Id
+	* Driving License
+	* Passport
+	* Ration Card
+	* Vehicle Registration Certificate
+	* Utility Bill
+	* Bank Statement
+
+**Path** : /v1/documents/address
+
+**Method** : POST
+
+**Example Request**
+ 	.. code::
+		
+		curl --location --request POST 'http://api-dev.in.springverify.com/v1/documents/employment' \
+		--header 'Content-Type: application/json' \
+		--data-raw '{
+			"isPermanent" : false,
+			"addressLinks": [
+				"https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
+			],
+			"docType": "Driving License"
+		}'
+
+**Example Response**
+	.. code::
+
+		{
+		    "message": "Address saved",
+		    "uuid": ["04c537a5-2fe9-43f9-bac6-bf7e4f98f861"]
+		}
+
+**Query Parameters**
+	* isPermanent (Boolean): is this current address or permanent.
+	* addressLinks (Array): Links of the images uploaded to some bucket.
+	* docType (string): true for currently working here.
+		**Keys**
+			* Aadhaar Card
+			* Voter Id
+			* Driving License
+			* Passport
+			* Ration Card
+			* Vehicle Registration Certificate
+			* Utility Bill
+			* Bank Statement
+
+**Response Parameters**
+
+	* message (string): Success message.
+	* uuid (string): Contains the unique id for the Address saved in DB.
 
 Add Education
 -------------
@@ -320,8 +371,12 @@ Add Education
 This API is used to add education details and docs.
 
 .. note::
-	 Please give the image url in this API.
+	 Please give the image url in this API. .. |br|
 	 Use the token which was returned after add candidate API.
+	 IF you haven't selected the education as 'true' while registering a candidate with springverify. We will ignore
+	 that particular education, save which were selected and you can find list Of Not Uploaded Docs in the response.
+	 You will get list of uploaded docs as well in the response.
+	 Empty array of any qualification won't get inserted in the DB
 
 **Currenly Supported Docs**
 	
@@ -393,7 +448,11 @@ This API is used to add education details and docs.
 **Response Parameters**
 
 	* message (string): Success message.
-	* response (object): It contains the request object.
+	* uuid (object): Unique ID's for docs which got saved in DB.
+	* listOfUploadedDocs (object): Docs which got uploaded.
+	* listOfNotUploadedDocs (object): Docs which failed to got uploaded.
+	* ReasonForNoteUploadingDocs (object): If any document didn't get uploaded.
+	* Note (object): Unique ID's for docs which got saved in DB.
 
 
 Get Candidate
@@ -409,6 +468,9 @@ This API is used to get candidates in bulk.
 **Method** : POST
 
 **Example Request**
+		
+FOR Multiple candidates
+
  	.. code::
 		
 		curl --location --request GET 'http://localhost:3009/v1/candidate/fetch' \
@@ -416,6 +478,28 @@ This API is used to get candidates in bulk.
 		--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MTU4MDM5NywiZXhwIjoxNTg1MTgwMzk3fQ.p4K0NefA8eOXFcCqxOYiLtnhmXM0KbqsiBuVxsUqT_o' \
 		--data-raw '{
 			"uuid" : ["89234831-1a7a-11ea-bc81-1657eb2ddd16", "16fe0e16-61dc-431c-9f33-255ec1b01fd4"]
+		}'
+
+OR (FOR Single candidate)
+
+ 	.. code::
+		
+		curl --location --request GET 'http://localhost:3009/v1/candidate/fetch' \
+		--header 'Content-Type: application/json' \
+		--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MTU4MDM5NywiZXhwIjoxNTg1MTgwMzk3fQ.p4K0NefA8eOXFcCqxOYiLtnhmXM0KbqsiBuVxsUqT_o' \
+		--data-raw '{
+			"uuid" : ["89234831-1a7a-11ea-bc81-1657eb2ddd16"]
+		}'
+
+OR (FOR Single candidate)
+
+ 	.. code::
+		
+		curl --location --request GET 'http://localhost:3009/v1/candidate/fetch' \
+		--header 'Content-Type: application/json' \
+		--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MTU4MDM5NywiZXhwIjoxNTg1MTgwMzk3fQ.p4K0NefA8eOXFcCqxOYiLtnhmXM0KbqsiBuVxsUqT_o' \
+		--data-raw '{
+			"uuid" : "89234831-1a7a-11ea-bc81-1657eb2ddd16"
 		}'
 
 **Example Response**
@@ -481,9 +565,104 @@ This API is used to get candidates in bulk.
 		        "candidates_addresses": [],
 		        "candidates_employments": [],
 		        "candidates_educations": [],
-		        "candidate_histories": []
-		    }
-		]
+					"candidate_histories": [],
+			"user": {
+				"id": 2,
+				"uuid": "dde7c7ff-1d81-45a9-9e24-e8ad2077d4f1",
+				"name": "Jack",
+				"username": null,
+				"email": "jackhym23@gmail.com",
+				"password": "$2y$13$wmNiKDRqbgZjMEbtvdfUZOcHG82lhF9s/VWSPA0RL2BE6uZlz0FlC",
+				"access_level": null,
+				"mobile": "9876543211",
+				"status": 1,
+				"auth_key": null,
+				"password_reset_token": null,
+				"created_at": null,
+				"updated_at": "2020-03-19T06:39:11.000Z",
+				"deleted_at": "2020-03-19T01:09:11.000Z",
+				"customer_id": "cust_Dq8sAd6hp3KLxu",
+				"email_reject_type": "NA",
+				"designation": "super admin"
+			},
+			"document": {
+				"ind_driving_license": {
+					"result": {
+						"address": "S NO. 32/14 A/3, AMBEGAON BK, BHARTI VIDYAPEETH BACKSIDE, PUNE.",
+						"date_of_birth": "1986-05-12",
+						"date_of_validity": null,
+						"fathers_name": "MILIND PALANDE",
+						"id_number": "MH-1220050000188",
+						"is_scanned": "false",
+						"issue_dates": {
+							"LMV": null,
+							"MCWG": null,
+							"TRANS": null
+						},
+						"name_on_card": "POOJA M PALANDE",
+						"pincode": "411046",
+						"state": "Maharashtra",
+						"street_address": "32/14 A/3, AMBEGAON BK, BHARTI VIDYAPEETH BACKSIDE, PUNE",
+						"type": [
+							"MCWG",
+							"TRANS"
+						],
+						"validity": {
+							"NT": null,
+							"T": "1986-05-12"
+						}
+					},
+					"matchedInformation": {
+						"message": "OCR Data has been verified with government source",
+						"source": "SARATHI",
+						"status": "source_down",
+						"ocr_id_match": false
+					},
+					"govResult": {
+						"action": "verify_with_source",
+						"completed_at": "2020-03-18T14:24:54+05:30",
+						"created_at": "2020-03-18T14:24:45+05:30",
+						"error": "SOURCE_DOWN",
+						"group_id": "5e6f67cb29155a001d00a8cc",
+						"request_id": "b6680566-211e-4795-8edf-72812b95e7f7",
+						"result": {
+							"source_output": {
+								"address": null,
+								"badge_details": null,
+								"card_serial_no": null,
+								"city": null,
+								"cov_details": null,
+								"date_of_issue": null,
+								"date_of_last_transaction": null,
+								"dl_status": null,
+								"dob": null,
+								"face_image": null,
+								"gender": null,
+								"hazardous_valid_till": null,
+								"hill_valid_till": null,
+								"id_number": null,
+								"issuing_rto_name": null,
+								"last_transacted_at": null,
+								"name": null,
+								"nt_validity_from": null,
+								"nt_validity_to": null,
+								"relatives_name": null,
+								"source": "SARATHI",
+								"status": "source_down",
+								"t_validity_from": null,
+								"t_validity_to": null
+							}
+						},
+						"status": "failed",
+						"task_id": "5e71e1ae0faf61001d96ca10",
+						"type": "ind_driving_license"
+					}
+				}
+			}
+				}
+			]
+
+
 
 **Query Parameters**
 	
@@ -493,4 +672,7 @@ This API is used to get candidates in bulk.
 
 **Response Parameters**
 
-	* Returns an array of candidate Object corresponding to the uuid's given.
+	* Returns an array of candidate Object corresponding to the uuid's given, with their corresponding checks data.
+	* User: Uploader details.
+	* document: (Response of Identity Validation)(Only if your company selected this service and sent 'front' doc in payload.)
+	* Returns an array of candidate Object corresponding to the uuid's given, with their corresponding checks data.

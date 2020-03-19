@@ -90,8 +90,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SpringVerify REST API’s</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#login">Login</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-candidate">Add Candidate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#identity-verification">Identity Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identity-upload-verification">Identity Upload/Verification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-employment">Add Employment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-address">Add Address</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-education">Add Education</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-candidate">Get Candidate</a></li>
 </ul>
@@ -180,10 +181,8 @@
 </dd>
 <dt><strong>Example Response</strong></dt>
 <dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;logged in successfully&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiamFja2h5bTIzQGdtYWlsLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MjU1MjcyOCwiZXhwIjoxNTg2MTUyNzI4fQ.7zs45ogp_Rcma7sJkzNcH5cnZ6gMQK-NXZjbxDsyFJw&quot;</span>
-        <span class="p">}</span>
+        <span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;User logged in successfully&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6MiwidXNlcklkIjo5MSwiY29tcGFueU5hbWUiOiJteWZha2VpY28gdGVzdGluZyBjbyAuaW4gW1BWVCBMRFRdIn0sImlhdCI6MTU4NDYxNTc5MywiZXhwIjoxNTg4MjE1NzkzfQ.ieVyXxv79SBLSaLWwJOwuzscFBlZfdF71CIZQ22B9_s&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -200,7 +199,6 @@
 <blockquote>
 <div><ul class="simple">
 <li>message (string): Success message.</li>
-<li>data (Object): Contains data of success response.</li>
 <li>token (string): Used as bearer token in add candidate API.</li>
 </ul>
 </div></blockquote>
@@ -250,42 +248,11 @@
 </div>
 </dd>
 <dt><strong>Example Response</strong></dt>
-<dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">{</span>
+<dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Candidate registered, token shared for further communication of {Anurag Sandhu}&quot;</span><span class="p">,</span>
-<span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Anurag Sandhu&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;anurag.sandhu@springrole.com&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;consentUrl&quot;</span><span class="p">:</span> <span class="s2">&quot;https://springverify-assets.s3.amazonaws.com/ccl_1574149640_332.pdf&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;verifications&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;identity&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;pan&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-            <span class="s2">&quot;drivingLicense&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-            <span class="s2">&quot;passport&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-            <span class="s2">&quot;voterId&quot;</span><span class="p">:</span> <span class="n">true</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;current&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
-            <span class="s2">&quot;permanent&quot;</span><span class="p">:</span> <span class="n">false</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;education&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;10&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-            <span class="s2">&quot;12&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-            <span class="s2">&quot;bachelor&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
-            <span class="s2">&quot;masters&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-            <span class="s2">&quot;doctorate&quot;</span><span class="p">:</span> <span class="n">true</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;workExperience&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;employments&quot;</span><span class="p">:</span> <span class="mi">1</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;criminalRecord&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;current&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
-            <span class="s2">&quot;permanent&quot;</span><span class="p">:</span> <span class="n">false</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">},</span>
-<span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;57e7423d-5ed0-46d9-9d6b-f96255362c40&quot;</span><span class="p">,</span>
-<span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozNjUsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODI4OTA1NDJ9.NqSLyvSicWdvSHEJcS8C3-Q1DAS4N45HtaUlO1ICT0U&quot;</span>
-    <span class="p">}</span>
+<span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;8b32cd73-7426-45ed-bc4d-50516ad15ad0&quot;</span><span class="p">,</span>
+<span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozODEsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODQ2MTY0NTR9.CYYjDgp5kmRBxtbQpFmsaP2JB46Fct4yBOOmeW27rQc&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </dd>
@@ -293,7 +260,7 @@
 <p><strong>Query Parameters</strong></p>
 <blockquote>
 <div><ul>
-<li><p class="first">identity (Object): Used to provide types of checks selected.</p>
+<li><p class="first">Identity (Object): Used to provide types of checks selected.</p>
 <blockquote>
 <div><dl class="docutils">
 <dt><strong>Object Keys</strong></dt>
@@ -307,7 +274,7 @@
 </dl>
 </div></blockquote>
 </li>
-<li><p class="first">address (Object): Used to provide what type of aaddress is being stored.</p>
+<li><p class="first">Address (Object): Used to provide what type of aaddress is being stored.</p>
 <blockquote>
 <div><dl class="docutils">
 <dt><strong>Object Keys</strong></dt>
@@ -319,7 +286,7 @@
 </dl>
 </div></blockquote>
 </li>
-<li><p class="first">education (Object): Used to provide types of education checks selected.</p>
+<li><p class="first">Education (Object): Used to provide types of education checks selected.</p>
 <blockquote>
 <div><dl class="docutils">
 <dt><strong>Object Keys</strong></dt>
@@ -334,7 +301,7 @@
 </dl>
 </div></blockquote>
 </li>
-<li><p class="first">workExperience (Object): Used to provide types of work experience selected.</p>
+<li><p class="first">WorkExperience (Object): Used to provide types of work experience selected.</p>
 <blockquote>
 <div><dl class="docutils">
 <dt><strong>Object Keys</strong></dt>
@@ -345,7 +312,7 @@
 </dl>
 </div></blockquote>
 </li>
-<li><p class="first">criminalRecord (Object): Used to provide on which address to run criminal check.</p>
+<li><p class="first">CriminalRecord (Object): Used to provide on which address to run criminal check.</p>
 <blockquote>
 <div><dl class="docutils">
 <dt><strong>Object Keys</strong></dt>
@@ -362,15 +329,36 @@
 <p><strong>Response Parameters</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>message (string): Success message.</li>
-<li>data (Object): Contains the request in the response and token.</li>
-<li>token (string): This token is candidate specific. For further api’s this token will be used.</li>
+<li><dl class="first docutils">
+<dt>message (string): Success message.</dt>
+<dd>FOR: Making the operation more meaningful [No need to save]</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>uuid (string): Contains the unique id for the candidate.</dt>
+<dd>FOR: This will be used while fetching the candidate from springverify [Saving Required]</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>token (string): This token is candidate specific. For further api’s this token will be used.</dt>
+<dd>FOR: No Expiration Time [Saving Required]</dd>
+</dl>
+</li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="identity-verification">
-<h2>Identity Verification<a class="headerlink" href="#identity-verification" title="Permalink to this headline">¶</a></h2>
-<p>This API returns the ocr result of the identity document uploaded.</p>
+<div class="section" id="identity-upload-verification">
+<h2>Identity Upload/Verification<a class="headerlink" href="#identity-upload-verification" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>This API saves the document uploaded into SV DB.</dt>
+<dd><dl class="first last docutils">
+<dt>SCENARIO 1: If company has opted for Identity Verification Automatic service and sending front(Not Array of docs), it will verify the ID internally(Asyncronously)</dt>
+<dd>Response from this can be fetched after 3-5 min.</dd>
+<dt>SCENARIO 2: If company has not opted for Identity Verification Automatic service, it will save the ID’s in DB.</dt>
+<dd>Response will be returned immediately.</dd>
+</dl>
+</dd>
+</dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Please give the image url in this API.
@@ -379,28 +367,50 @@ Use the token which was returned after add candidate API.</p>
 <p><strong>Currenly Supported Docs</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>DRIVING LICENSE.</li>
-<li>PAN</li>
-<li>PASSPORT</li>
-<li>VOTER ID</li>
+<li>DRIVING LICENSE (type : ind_driving_license)</li>
+<li>PAN (type : ind_pan)</li>
+<li>PASSPORT (type : ind_passport)</li>
+<li>VOTER ID (type : ind_voter_id)</li>
 </ul>
 </div></blockquote>
 <p><strong>Path</strong> : /v1/documents/identity</p>
 <p><strong>Method</strong> : POST</p>
-<dl class="docutils">
-<dt><strong>Example Request</strong></dt>
-<dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;http://api-dev.in.springverify.com/v1/documents/identity&#39;</span> \
-<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozMjMsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODAzODUxMjN9.dInOuPThk52E7KLh1084zpxyfcWyYQQAPYiD9b2d05w&#39;</span> \
-<span class="o">--</span><span class="n">form</span> <span class="s1">&#39;type=ind_driving_license&#39;</span> \
-<span class="o">--</span><span class="n">form</span> <span class="s1">&#39;s3Front=https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&#39;</span> \
-<span class="o">--</span><span class="n">form</span> <span class="s1">&#39;s3Back=https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&#39;</span>
+<p><strong>Example Request</strong></p>
+<blockquote>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;http://api-dev.in.springverify.com/v1/documents/identity&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+<span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ind_driving_license&quot;</span><span class="p">,</span>
+<span class="s2">&quot;docs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/*********-front&quot;</span><span class="p">,</span> <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/*********--front&quot;</span><span class="p">]</span>
+<span class="p">}</span><span class="s1">&#39;</span>
 </pre></div>
 </div>
-</dd>
+<p>OR</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;http://api-dev.in.springverify.com/v1/documents/identity&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+<span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;ind_voter_id&quot;</span><span class="p">,</span>
+<span class="s2">&quot;front&quot;</span><span class="p">:</span> <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span><span class="p">,</span>
+<span class="s2">&quot;back&quot;</span><span class="p">:</span> <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>OR (Back is optional)</p>
+<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;http://api-dev.in.springverify.com/v1/documents/identity&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+<span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;ind_voter_id&quot;</span><span class="p">,</span>
+<span class="s2">&quot;front&quot;</span><span class="p">:</span> <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<p>NOTE: Identity Verification Automatic can not applied to DOCS Array’s payload. (Not to CURL 1)</p>
+</div></blockquote>
+<dl class="docutils">
 <dt><strong>Example Response</strong></dt>
 <dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;identity doc uploaded succesfully&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Identity saved&quot;</span><span class="p">,</span>
+<span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;9fd58e5d-cee5-4b7b-9ef3-6eb446d952aa&quot;</span> <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -423,16 +433,21 @@ Use the token which was returned after add candidate API.</p>
 </dl>
 </div></blockquote>
 </li>
-<li><p class="first">s3Front (string): front side of the identity doc.</p>
-</li>
-<li><p class="first">s3Back (String): back of the identity doc. (optional field)</p>
-</li>
 </ul>
 </div></blockquote>
 <p><strong>Response Parameters</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>message (string): Success message.</li>
+<li><dl class="first docutils">
+<dt>message (string): Success message.</dt>
+<dd>FOR: Making the operation more meaningful [No need to save]</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>uuid (string): Contains the unique id for the identity saved in DB.</dt>
+<dd>[Saving is your choice.]</dd>
+</dl>
+</li>
 </ul>
 </div></blockquote>
 </div>
@@ -469,9 +484,9 @@ Use the token which was returned after add candidate API.</p>
             <span class="s2">&quot;currentlyHere&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
             <span class="s2">&quot;startDate&quot;</span><span class="p">:</span> <span class="s2">&quot;25/11/19&quot;</span><span class="p">,</span>
             <span class="s2">&quot;s3Links&quot;</span> <span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span>
+            <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/***/ind_driving_license-front&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/***/ind_driving_license-front&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/***/ind_driving_license-front&quot;</span>
             <span class="p">]</span>
         <span class="p">}</span>
     <span class="p">]</span>
@@ -482,21 +497,7 @@ Use the token which was returned after add candidate API.</p>
 <dt><strong>Example Response</strong></dt>
 <dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Employment saved&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;document_type&quot;</span><span class="p">:</span> <span class="s2">&quot;ABC&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;companyName&quot;</span><span class="p">:</span> <span class="s2">&quot;ABC&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;designation&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;currentlyHere&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-            <span class="s2">&quot;startDate&quot;</span><span class="p">:</span> <span class="s2">&quot;25/11/19&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;s3Links&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span>
-            <span class="p">],</span>
-            <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;04c537a5-2fe9-43f9-bac6-bf7e4f98f861&quot;</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
+    <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">04</span><span class="n">c537a5</span><span class="o">-</span><span class="mi">2</span><span class="n">fe9</span><span class="o">-</span><span class="mi">43</span><span class="n">f9</span><span class="o">-</span><span class="n">bac6</span><span class="o">-</span><span class="n">bf7e4f98f861</span><span class="p">,</span> <span class="mi">04</span><span class="n">c537a5</span><span class="o">-</span><span class="mi">2</span><span class="n">fe9</span><span class="o">-</span><span class="mi">43</span><span class="n">f9</span><span class="o">-</span><span class="n">bac6</span><span class="o">-</span><span class="n">bf7e4f98f861</span><span class="p">,</span> <span class="mi">04</span><span class="n">c537a5</span><span class="o">-</span><span class="mi">2</span><span class="n">fe9</span><span class="o">-</span><span class="mi">43</span><span class="n">f9</span><span class="o">-</span><span class="n">bac6</span><span class="o">-</span><span class="n">bf7e4f98f861</span>  <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -520,15 +521,15 @@ Use the token which was returned after add candidate API.</p>
 </dl>
 </div></blockquote>
 </li>
-<li><p class="first">companyName (string): name of the company where candidate was working.</p>
+<li><p class="first">CompanyName (string): name of the company where candidate was working.</p>
 </li>
-<li><p class="first">designation (String): designation of the candidate.</p>
+<li><p class="first">Designation (String): designation of the candidate.</p>
 </li>
-<li><p class="first">currentlyHere (Boolean): true for currently working here.</p>
+<li><p class="first">CurrentlyHere (Boolean): true for currently working here.</p>
 </li>
-<li><p class="first">startDate (String): Format dd/mm/yy.</p>
+<li><p class="first">StartDate (String): Format dd/mm/yy.</p>
 </li>
-<li><p class="first">s3Links (Array): Array of employment doc’s links.</p>
+<li><p class="first">S3Links (Array): Array of employment doc’s links.</p>
 </li>
 </ul>
 </div></blockquote>
@@ -536,7 +537,90 @@ Use the token which was returned after add candidate API.</p>
 <blockquote>
 <div><ul class="simple">
 <li>message (string): Success message.</li>
-<li>response (object): It contains the request object.</li>
+<li><dl class="first docutils">
+<dt>uuid (string): Contains the unique id for the Employment saved in DB.</dt>
+<dd>[Saving is your choice.]</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="add-address">
+<h2>Add Address<a class="headerlink" href="#add-address" title="Permalink to this headline">¶</a></h2>
+<p>This API is used to add Address details and docs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Please give the image url in this API.
+Use the token which was returned after add candidate API.</p>
+</div>
+<p><strong>Currenly Supported Docs</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>Aadhaar Card</li>
+<li>Voter Id</li>
+<li>Driving License</li>
+<li>Passport</li>
+<li>Ration Card</li>
+<li>Vehicle Registration Certificate</li>
+<li>Utility Bill</li>
+<li>Bank Statement</li>
+</ul>
+</div></blockquote>
+<p><strong>Path</strong> : /v1/documents/address</p>
+<p><strong>Method</strong> : POST</p>
+<dl class="docutils">
+<dt><strong>Example Request</strong></dt>
+<dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">POST</span> <span class="s1">&#39;http://api-dev.in.springverify.com/v1/documents/employment&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+        <span class="s2">&quot;isPermanent&quot;</span> <span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+        <span class="s2">&quot;addressLinks&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;docType&quot;</span><span class="p">:</span> <span class="s2">&quot;Driving License&quot;</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Example Response</strong></dt>
+<dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Address saved&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;04c537a5-2fe9-43f9-bac6-bf7e4f98f861&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Query Parameters</strong></dt>
+<dd><ul class="first last simple">
+<li>isPermanent (Boolean): is this current address or permanent.</li>
+<li>addressLinks (Array): Links of the images uploaded to some bucket.</li>
+<li><dl class="first docutils">
+<dt>docType (string): true for currently working here.</dt>
+<dd><dl class="first last docutils">
+<dt><strong>Keys</strong></dt>
+<dd><ul class="first last">
+<li>Aadhaar Card</li>
+<li>Voter Id</li>
+<li>Driving License</li>
+<li>Passport</li>
+<li>Ration Card</li>
+<li>Vehicle Registration Certificate</li>
+<li>Utility Bill</li>
+<li>Bank Statement</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Response Parameters</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>message (string): Success message.</li>
+<li>uuid (string): Contains the unique id for the Address saved in DB.</li>
 </ul>
 </div></blockquote>
 </div>
@@ -545,8 +629,12 @@ Use the token which was returned after add candidate API.</p>
 <p>This API is used to add education details and docs.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Please give the image url in this API.
-Use the token which was returned after add candidate API.</p>
+<p class="last">Please give the image url in this API. .. <a href="#id1"><span class="problematic" id="id2">|br|</span></a>
+Use the token which was returned after add candidate API.
+IF you haven’t selected the education as ‘true’ while registering a candidate with springverify. We will ignore
+that particular education, save which were selected and you can find list Of Not Uploaded Docs in the response.
+You will get list of uploaded docs as well in the response.
+Empty array of any qualification won’t get inserted in the DB</p>
 </div>
 <p><strong>Currenly Supported Docs</strong></p>
 <blockquote>
@@ -629,7 +717,11 @@ Use the token which was returned after add candidate API.</p>
 <blockquote>
 <div><ul class="simple">
 <li>message (string): Success message.</li>
-<li>response (object): It contains the request object.</li>
+<li>uuid (object): Unique ID’s for docs which got saved in DB.</li>
+<li>listOfUploadedDocs (object): Docs which got uploaded.</li>
+<li>listOfNotUploadedDocs (object): Docs which failed to got uploaded.</li>
+<li>ReasonForNoteUploadingDocs (object): If any document didn’t get uploaded.</li>
+<li>Note (object): Unique ID’s for docs which got saved in DB.</li>
 </ul>
 </div></blockquote>
 </div>
@@ -642,9 +734,10 @@ Use the token which was returned after add candidate API.</p>
 </div>
 <p><strong>Path</strong> : /v1/candidate/fetch</p>
 <p><strong>Method</strong> : POST</p>
-<dl class="docutils">
-<dt><strong>Example Request</strong></dt>
-<dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">GET</span> <span class="s1">&#39;http://localhost:3009/v1/candidate/fetch&#39;</span> \
+<p><strong>Example Request</strong></p>
+<p>FOR Multiple candidates</p>
+<blockquote>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">GET</span> <span class="s1">&#39;http://localhost:3009/v1/candidate/fetch&#39;</span> \
 <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
 <span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MTU4MDM5NywiZXhwIjoxNTg1MTgwMzk3fQ.p4K0NefA8eOXFcCqxOYiLtnhmXM0KbqsiBuVxsUqT_o&#39;</span> \
 <span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
@@ -652,7 +745,30 @@ Use the token which was returned after add candidate API.</p>
 <span class="p">}</span><span class="s1">&#39;</span>
 </pre></div>
 </div>
-</dd>
+</div></blockquote>
+<p>OR (FOR Single candidate)</p>
+<blockquote>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">GET</span> <span class="s1">&#39;http://localhost:3009/v1/candidate/fetch&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MTU4MDM5NywiZXhwIjoxNTg1MTgwMzk3fQ.p4K0NefA8eOXFcCqxOYiLtnhmXM0KbqsiBuVxsUqT_o&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+        <span class="s2">&quot;uuid&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;89234831-1a7a-11ea-bc81-1657eb2ddd16&quot;</span><span class="p">]</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>OR (FOR Single candidate)</p>
+<blockquote>
+<div><div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">location</span> <span class="o">--</span><span class="n">request</span> <span class="n">GET</span> <span class="s1">&#39;http://localhost:3009/v1/candidate/fetch&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+<span class="o">--</span><span class="n">header</span> <span class="s1">&#39;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MTU4MDM5NywiZXhwIjoxNTg1MTgwMzk3fQ.p4K0NefA8eOXFcCqxOYiLtnhmXM0KbqsiBuVxsUqT_o&#39;</span> \
+<span class="o">--</span><span class="n">data</span><span class="o">-</span><span class="n">raw</span> <span class="s1">&#39;{</span>
+        <span class="s2">&quot;uuid&quot;</span> <span class="p">:</span> <span class="s2">&quot;89234831-1a7a-11ea-bc81-1657eb2ddd16&quot;</span>
+<span class="p">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="docutils">
 <dt><strong>Example Response</strong></dt>
 <dd><div class="code first last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
     <span class="p">{</span>
@@ -714,9 +830,102 @@ Use the token which was returned after add candidate API.</p>
         <span class="s2">&quot;candidates_addresses&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="s2">&quot;candidates_employments&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="s2">&quot;candidates_educations&quot;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;candidate_histories&quot;</span><span class="p">:</span> <span class="p">[]</span>
-    <span class="p">}</span>
-<span class="p">]</span>
+                        <span class="s2">&quot;candidate_histories&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;dde7c7ff-1d81-45a9-9e24-e8ad2077d4f1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Jack&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;jackhym23@gmail.com&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;$2y$13$wmNiKDRqbgZjMEbtvdfUZOcHG82lhF9s/VWSPA0RL2BE6uZlz0FlC&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;access_level&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;mobile&quot;</span><span class="p">:</span> <span class="s2">&quot;9876543211&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;auth_key&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;password_reset_token&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-03-19T06:39:11.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;deleted_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-03-19T01:09:11.000Z&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;customer_id&quot;</span><span class="p">:</span> <span class="s2">&quot;cust_Dq8sAd6hp3KLxu&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;email_reject_type&quot;</span><span class="p">:</span> <span class="s2">&quot;NA&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;designation&quot;</span><span class="p">:</span> <span class="s2">&quot;super admin&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;document&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;ind_driving_license&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;S NO. 32/14 A/3, AMBEGAON BK, BHARTI VIDYAPEETH BACKSIDE, PUNE.&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;date_of_birth&quot;</span><span class="p">:</span> <span class="s2">&quot;1986-05-12&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;date_of_validity&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                <span class="s2">&quot;fathers_name&quot;</span><span class="p">:</span> <span class="s2">&quot;MILIND PALANDE&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;id_number&quot;</span><span class="p">:</span> <span class="s2">&quot;MH-1220050000188&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;is_scanned&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;issue_dates&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">&quot;LMV&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                        <span class="s2">&quot;MCWG&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                        <span class="s2">&quot;TRANS&quot;</span><span class="p">:</span> <span class="n">null</span>
+                                <span class="p">},</span>
+                                <span class="s2">&quot;name_on_card&quot;</span><span class="p">:</span> <span class="s2">&quot;POOJA M PALANDE&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;pincode&quot;</span><span class="p">:</span> <span class="s2">&quot;411046&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;Maharashtra&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;street_address&quot;</span><span class="p">:</span> <span class="s2">&quot;32/14 A/3, AMBEGAON BK, BHARTI VIDYAPEETH BACKSIDE, PUNE&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="p">[</span>
+                                        <span class="s2">&quot;MCWG&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;TRANS&quot;</span>
+                                <span class="p">],</span>
+                                <span class="s2">&quot;validity&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">&quot;NT&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                        <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="s2">&quot;1986-05-12&quot;</span>
+                                <span class="p">}</span>
+                        <span class="p">},</span>
+                        <span class="s2">&quot;matchedInformation&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;OCR Data has been verified with government source&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;SARATHI&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;source_down&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;ocr_id_match&quot;</span><span class="p">:</span> <span class="n">false</span>
+                        <span class="p">},</span>
+                        <span class="s2">&quot;govResult&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="s2">&quot;verify_with_source&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;completed_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-03-18T14:24:54+05:30&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-03-18T14:24:45+05:30&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;SOURCE_DOWN&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;group_id&quot;</span><span class="p">:</span> <span class="s2">&quot;5e6f67cb29155a001d00a8cc&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;request_id&quot;</span><span class="p">:</span> <span class="s2">&quot;b6680566-211e-4795-8edf-72812b95e7f7&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">&quot;source_output&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                                <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;badge_details&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;card_serial_no&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;city&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;cov_details&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;date_of_issue&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;date_of_last_transaction&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;dl_status&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;dob&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;face_image&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;gender&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;hazardous_valid_till&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;hill_valid_till&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;id_number&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;issuing_rto_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;last_transacted_at&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;nt_validity_from&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;nt_validity_to&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;relatives_name&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;SARATHI&quot;</span><span class="p">,</span>
+                                                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;source_down&quot;</span><span class="p">,</span>
+                                                <span class="s2">&quot;t_validity_from&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                                                <span class="s2">&quot;t_validity_to&quot;</span><span class="p">:</span> <span class="n">null</span>
+                                        <span class="p">}</span>
+                                <span class="p">},</span>
+                                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;failed&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;task_id&quot;</span><span class="p">:</span> <span class="s2">&quot;5e71e1ae0faf61001d96ca10&quot;</span><span class="p">,</span>
+                                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;ind_driving_license&quot;</span>
+                        <span class="p">}</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+                <span class="p">}</span>
+        <span class="p">]</span>
 </pre></div>
 </div>
 </dd>
@@ -730,7 +939,10 @@ Use the token which was returned after add candidate API.</p>
 <p><strong>Response Parameters</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>Returns an array of candidate Object corresponding to the uuid’s given.</li>
+<li>Returns an array of candidate Object corresponding to the uuid’s given, with their corresponding checks data.</li>
+<li>User: Uploader details.</li>
+<li>document: (Response of Identity Validation)(Only if your company selected this service and sent ‘front’ doc in payload.)</li>
+<li>Returns an array of candidate Object corresponding to the uuid’s given, with their corresponding checks data.</li>
 </ul>
 </div></blockquote>
 </div>

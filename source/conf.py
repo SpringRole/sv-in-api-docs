@@ -26,7 +26,7 @@ pygments_style = 'sphinx'
 # Options for HTML Output
 # =======================
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'groundwork'
 
 html_static_path = ['_static']
 

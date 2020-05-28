@@ -231,6 +231,7 @@ This API is used to add employment details and any relevant docs of the user.
 		            "designation": "1",
 		            "currentlyHere": true,
 		            "startDate": "25/11/19",
+					"endDate" : "25/3/20",
 		            "s3Links" : [
 					<link1>,
 					<link2>,
@@ -267,7 +268,9 @@ This API is used to add employment details and any relevant docs of the user.
 	* currentlyHere (Boolean): 
 		true for currently working here.
 	* startDate (String): 
-		Format dd/mm/yy.
+		Format dd/mm/yy
+	* endDate (String):
+		Format dd/mm/yy
 	* s3Links (Array): 
 		Array of employment doc's links.
 
@@ -456,3 +459,5 @@ This API is used to get candidates in bulk.
 **Response Parameters**
 
 	* Returns an array of candidate Object corresponding to the uuid's given.SpringVerify REST API's
+
+

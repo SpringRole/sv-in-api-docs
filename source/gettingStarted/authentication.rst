@@ -459,3 +459,5 @@ This API is used to get candidates in bulk.
 **Response Parameters**
 
 	* Returns an array of candidate Object corresponding to the uuid's given.SpringVerify REST API's
+
+

@@ -28,3 +28,6 @@ We currently have two environments, development and production. Both the environ
 Postman
 ----------------
 
+
+public link: https://www.getpostman.com/collections/87c12d8a47528cde952c
+

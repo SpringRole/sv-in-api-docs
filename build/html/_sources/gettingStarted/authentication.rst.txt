@@ -12,9 +12,9 @@ This API is used to login into the platform. We use Json Web Token for authentic
 **Method** : POST
 
 **Example Request**
- 	.. code::
+ 	.. code-block:: html
 		
-		curl --location --request POST 'http://localhost:3009/auth/login' \
+		curl --location --request POST 'https://api-dev.in.springverify.com/v1/auth/login' \
 		--header 'Content-Type: application/json' \
 		--data-raw '{
 			"email":"jackhym23@gmail.com",
@@ -22,7 +22,7 @@ This API is used to login into the platform. We use Json Web Token for authentic
 		}'
 
 **Example Response**
-	.. code::
+	.. code-block:: html
 
 		{
 			"message": "logged in successfully",
@@ -32,35 +32,37 @@ This API is used to login into the platform. We use Json Web Token for authentic
 		}
 
 **Query Parameters**
-	
-	* email (string): Email registered in springverify. 
-	* password (string): Password registered in springverify.
+	- **email** (String): Email registered in springverify.
+
+	- **password** (String): Password registered in springverify.
 
 **Response Parameters**
+	- **message** (String): Success message. 
 
-	* message (string): Success message. 
-	* data (Object): Contains data of success response.
-	* token (string): Used as bearer token in add candidate API.
+	- **data** (Object): Contains token.
+
+	- **token** (String): Used as bearer token in add candidate API.
 
 Add Candidate
 -------------
 
-This API is used to select the types of check this candidate should go through. 
+Post API to gather candidate's basic details and configuration. The configuration is decided at the company (your) end. The configuration sent in this api will be
+validated against enteries in following APIs. For example , if Pan is True, we expect candidate's pan card in identity verifications API.
 
 **Path** : /v1/candidate
 
 **Method** : POST
 
 **Example Request**
- 	.. code::
+ 	.. code-block:: html
 		
-		curl --location --request POST 'http://api-dev.in.springverify.com/v1/candidate' \
+		curl --location --request POST 'https://api-dev.in.springverify.com/v1/candidate' \
 		--header 'Content-Type: application/json' \
-		--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MTU4MDM5NywiZXhwIjoxNTg1MTgwMzk3fQ.p4K0NefA8eOXFcCqxOYiLtnhmXM0KbqsiBuVxsUqT_o' \
+		--header 'Authorization: Bearer <Token>' \
 		--data-raw '{
 		    "name": "Anurag Sandhu",
 		    "email": "anurag.sandhu@springrole.com",
-		    "consentUrl" : "https://springverify-assets.s3.amazonaws.com/ccl_1574149640_332.pdf",
+		    "consentUrl" : <consent_url>,
 		    "verifications": {
 		        "identity": {
 		            "pan": true,
@@ -90,153 +92,122 @@ This API is used to select the types of check this candidate should go through.
 		}'
 
 **Example Response**
-	.. code::
+	.. code-block:: html
 
 		{
-	    "message": "Candidate registered, token shared for further communication of {Anurag Sandhu}",
-	    "body": {
-	        "name": "Anurag Sandhu",
-	        "email": "anurag.sandhu@springrole.com",
-	        "consentUrl": "https://springverify-assets.s3.amazonaws.com/ccl_1574149640_332.pdf",
-	        "verifications": {
-	            "identity": {
-	                "pan": true,
-	                "drivingLicense": true,
-	                "passport": true,
-	                "voterId": true
-	            },
-	            "address": {
-	                "current": false,
-	                "permanent": false
-	            },
-	            "education": {
-	                "10": true,
-	                "12": true,
-	                "bachelor": false,
-	                "masters": true,
-	                "doctorate": true
-	            },
-	            "workExperience": {
-	                "employments": 1
-	            },
-	            "criminalRecord": {
-	                "current": false,
-	                "permanent": false
-	            }
-	        }
-	    },
-	    "uuid": "57e7423d-5ed0-46d9-9d6b-f96255362c40",
-	    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozNjUsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODI4OTA1NDJ9.NqSLyvSicWdvSHEJcS8C3-Q1DAS4N45HtaUlO1ICT0U"
+	    	"message": "Candidate registered, token shared for further communication of {Anurag Sandhu}",
+	    	"uuid": "57e7423d-5ed0-46d9-9d6b-f96255362c40",
+	    	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozNjUsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODI4OTA1NDJ9.NqSLyvSicWdvSHEJcS8C3-Q1DAS4N45HtaUlO1ICT0U"
 		}
 
-**Query Parameters**
-	
-	* identity (Object): Used to provide types of checks selected.
-		
-		**Object Keys**
-			- pan (Boolean)
-			- passport (Boolean)
-			- voterId (Boolean)
-			- drivingLicense (Boolean)
+Query Parameters
+	- **consentUrl** (String): 
+		URL of signed consent from the user being verified.
 
-	* address (Object): Used to provide what type of aaddress is being stored.
-		
-		**Object Keys**
-			- current (Boolean)
-			- permanent (Boolean)
+	- **identity** (Object): Used to provide types of checks selected.
+			- **pan** (Boolean)  - PAN Card validation required
+			- **passport** (Boolean) - Passport validation required
+			- **voterId** (Boolean) - VoterID validation required
+			- **drivingLicense** (Boolean) - Driving License Card validation required
 
-	* education (Object): Used to provide types of education checks selected.
-		
-		**Object Keys**
-			- 10 (Boolean)
-			- 12 (Boolean)
-			- bachelor (Boolean)
-			- masters (Boolean)
-			- doctorate (Boolean)
+	- **address** (Object): Used to provide what type of aaddress is being stored.
+			- **current** (Boolean) - Current Address validation required
+			- **permanent** (Boolean) - Permanent Address validation required
 
-	* workExperience (Object): Used to provide types of work experience selected.
-		
-		**Object Keys**
-			- employments (Intiger): count of the employments candidate has.
+	- **education** (Object): Used to provide types of education checks selected.
+			- **10** (Boolean) - Class Xth mark sheet validation required
+			- **12** (Boolean)  - Class XIIth mark sheet validation required
+			- **bachelor** (Boolean) - Bachelor Degree validation required
+			- **masters** (Boolean) - Masters Degree validation required
+			- **doctorate** (Boolean) - Doctorate/PHD or any other equivalent degree validation required
 
-	* criminalRecord (Object): Used to provide on which address to run criminal check.
-		
-		**Object Keys**
-			- current (Boolean)
-			- permanent (Boolean)
+	- **workExperience** (Object): Used to provide types of work experience selected.
+			- **employments** (Integer) - count of the employments candidate has.
 
-**Response Parameters**
+	- **criminalRecord** (Object): Used to provide on which address to run criminal check.
+			- **current** (Boolean) - Criminal check on current address required
+			- **permanent** (Boolean) - Criminal check on permanent address required
 
-	* message (string): Success message.
-	* data (Object): Contains the request in the response and token.
-	* token (string): This token is candidate specific. For further api's this token will be used.
+Response Parameters
+	- **message** (String): Success message.
+	- **uuid** (String): Unique UUID of the candidate.
+	- **token** (string): This token is candidate specific. **For further api's this token will be used.**
 
 Identity Verification
 ---------------------
 
-This API returns the ocr result of the identity document uploaded. 
+Post API to store ID card of the candidate. This will include OCR in future.
 
-.. note::
-	 Please give the image url in this API.
-	 Use the token which was returned after add candidate API.
+.. note:: Please give the image url in this API. Use the token which was returned after add candidate API. If your image is in base64, we suggest you host it on your server. If you are unable to host the image securely, please contact us.
 
-**Currenly Supported Docs**
-	
-	* DRIVING LICENSE.
+.. warning:: will throw error if you try to upload a doc which was not configured in addCandidate API
+
+- Currenly Supported Docs
+	* DRIVING LICENSE
 	* PAN
 	* PASSPORT
 	* VOTER ID 
+
 
 **Path** : /v1/documents/identity
 
 **Method** : POST
 
 **Example Request**
- 	.. code::
+ 	.. code-block:: html
 		
-		curl --location --request POST 'http://api-dev.in.springverify.com/v1/documents/identity' \
-		--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozMjMsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODAzODUxMjN9.dInOuPThk52E7KLh1084zpxyfcWyYQQAPYiD9b2d05w' \
-		--form 'type=ind_driving_license' \
-		--form 's3Front=https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front' \
-		--form 's3Back=https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front'
+		curl --location --request POST 'https://api-dev.in.springverify.com/v1/documents/identity' \
+		--header 'Content-Type: application/json' \
+		--header 'Authorization: Bearer <Token>' \
+		--header 'Content-Type: application/json' \
+		--data-raw '{
+		"type" : "ind_voter_id",
+		"front" : <front_doc_url>,
+		"back" : <back_doc_url>,
+		"docs" : [ <doc_urls> ]
+		}'
 
 **Example Response**
-	.. code::
+	.. code-block:: html
 
 		{
 			"message": "identity doc uploaded succesfully",
 			"data": {}
 		}
 
-**Query Parameters**
-	
-	* type (string): Used to give the type of id doc provided.
-		
-		**Possible Values**
+.. note:: if you know the front and back, please send in front and back keys. If front and back are not known, please send in docs array. If front/back are provided, we conduct OCR of the document which can be fetched using getCandidate API. Back is optional, so you can only send front of the doc.
+
+
+
+Query Parameters
+	**type** (String): Used to give the type of id doc provided.
+		*Possible Keys*
 			- ind_driving_license
 			- ind_passport
 			- ind_voter_id
 			- ind_pan
 
-	* s3Front (string): front side of the identity doc.
-	* s3Back (String): back of the identity doc. (optional field)
+	**docs** (String): 
+		Array of images for the doc
 
-**Response Parameters**
+	**front** (String): 
+		front url of doc. either front or docs key is required.
 
-	* message (string): Success message.
+	**back** (String): 
+		back url of doc. optional.
 
+Response Parameters
+	**message** (String): 
+		Success message.
 
 Add Employment
 --------------
 
-This API is used to add employment details and docs.
+This API is used to add employment details and any relevant docs of the user.
 
-.. note::
-	 Please give the image url in this API.
-	 Use the token which was returned after add candidate API.
+.. note:: Please give the image url in this API. Use the token which was returned after add candidate API.
 
 **Currenly Supported Docs**
-	
 	* Salary Slip
 	* Experience Letter
 	* Relieving Letter
@@ -248,9 +219,9 @@ This API is used to add employment details and docs.
 **Method** : POST
 
 **Example Request**
- 	.. code::
+ 	.. code-block:: html
 		
-		curl --location --request POST 'http://api-dev.in.springverify.com/v1/documents/employment' \
+		curl --location --request POST 'https://api-dev.in.springverify.com/v1/documents/employment' \
 		--header 'Content-Type: application/json' \
 		--data-raw '{
 		    "employments" : [
@@ -261,108 +232,101 @@ This API is used to add employment details and docs.
 		            "currentlyHere": true,
 		            "startDate": "25/11/19",
 		            "s3Links" : [
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
+					<link1>,
+					<link2>,
+					<link3>
 		            ]
 		        }
 		    ]
 		}'
 
 **Example Response**
-	.. code::
+	.. code-block:: html
 
 		{
 		    "message": "Employment saved",
 		    "response": [
-		        {
-		            "document_type": "ABC",
-		            "companyName": "ABC",
-		            "designation": "1",
-		            "currentlyHere": true,
-		            "startDate": "25/11/19",
-		            "s3Links": [
-		                "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
-		                "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
-		                "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
-		            ],
-		            "uuid": "04c537a5-2fe9-43f9-bac6-bf7e4f98f861"
-		        }
+		        <same as request>
 		    ]
 		}
 
 **Query Parameters**
-	
-	* document_type (string): Used to give the type of employment doc provided.
-		
-		**Possible Values**
+	* document_type (string): 
+			Used to give the type of employment doc provided. supported keys:
+
 			- SalarySlip
 			- ExperienceLetter
 			- RelievingLetter
 			- AppointmentLetter
 			- Other
 
-	* companyName (string): name of the company where candidate was working.
-	* designation (String): designation of the candidate.
-	* currentlyHere (Boolean): true for currently working here.
-	* startDate (String): Format dd/mm/yy.
-	* s3Links (Array): Array of employment doc's links.
+	* companyName (string): 
+		name of the company where candidate was working.
+	* designation (String): 
+		designation of the candidate.
+	* currentlyHere (Boolean): 
+		true for currently working here.
+	* startDate (String): 
+		Format dd/mm/yy.
+	* s3Links (Array): 
+		Array of employment doc's links.
 
 **Response Parameters**
-
-	* message (string): Success message.
-	* response (object): It contains the request object.
+	* message (string): 
+		Success message.
+	* response (object): 
+		It contains the request object.
 
 
 Add Education
 -------------
 
-This API is used to add education details and docs.
+This API is used to add education details and any relevant docs of the user.
 
-.. note::
-	 Please give the image url in this API.
-	 Use the token which was returned after add candidate API.
+.. note:: Please give the image url in this API. Use the token which was returned after add candidate API.
+
+.. warning:: Api will reject upload of any docs that were not set True in config. 
 
 **Currenly Supported Docs**
-	
 	* 10th class
 	* 12th class
 	* Bachelor
-	* masters
-	* doctorate
+	* Masters
+	* Doctorate
 
 **Path** : /v1/documents/education
 
 **Method** : POST
 
 **Example Request**
- 	.. code::
+ 	.. code-block:: html
 		
-		curl --location --request POST 'http://api-dev.in.springverify.com/v1/documents/education' \
+		curl --location --request POST 'https://api-dev.in.springverify.com/v1/documents/education' \
 		--header 'Content-Type: application/json' \
 		--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImNhbmRpZGF0ZUlkIjozMjMsImNvbXBhbnlJZCI6Miwicm9sZSI6ImNhbmRpZGF0ZSJ9LCJpYXQiOjE1ODAzODUxMjN9.dInOuPThk52E7KLh1084zpxyfcWyYQQAPYiD9b2d05w' \
 		--data-raw '{
 			"education" :     {
 		        "10": [
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
+		            <link>
 		        ],
 		        "12": [
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front",
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
+		            <link>,
+		            <link>
 		        ],
 		        "bachelor": [
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
+		            <link>
 		        ],
 		        "masters": [
-		            "https://springverify-assets-id.s3.amazonaws.com/323/ind_driving_license-front"
+		           <link>
 		        ],
 		        "doctorate": [
+					<link>
 		        ]
 		    }
 		}'
 
 **Example Response**
-	.. code::
+	.. code-block:: html
 
 		{
 		    "message": "Education data saved",
@@ -378,11 +342,10 @@ This API is used to add education details and docs.
 		    "Note": "Empty array of any qualification won't get inserted in the DB"
 		}
 
+
 **Query Parameters**
-	
-	* education (array): Used to give the type of education doc provided.
-		
-		**Keys**
+	* education (array): 
+		Used to give the type of education doc provided. valid keys for array of docs are:
 			- 10
 			- 12
 			- bachelor
@@ -391,7 +354,6 @@ This API is used to add education details and docs.
 
 
 **Response Parameters**
-
 	* message (string): Success message.
 	* response (object): It contains the request object.
 
@@ -409,9 +371,9 @@ This API is used to get candidates in bulk.
 **Method** : POST
 
 **Example Request**
- 	.. code::
+ 	.. code-block:: html
 		
-		curl --location --request GET 'http://localhost:3009/v1/candidate/fetch' \
+		curl --location --request GET 'https://api-dev.in.springverify.com/v1/candidate/fetch' \
 		--header 'Content-Type: application/json' \
 		--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW51cmFnLnNhbmRodUBzcHJpbmdyb2xlLmNvbSIsImNvbXBhbnlJZCI6Mn0sImlhdCI6MTU4MTU4MDM5NywiZXhwIjoxNTg1MTgwMzk3fQ.p4K0NefA8eOXFcCqxOYiLtnhmXM0KbqsiBuVxsUqT_o' \
 		--data-raw '{
@@ -419,7 +381,7 @@ This API is used to get candidates in bulk.
 		}'
 
 **Example Response**
-	.. code::
+	.. code-block:: html
 
 		[
 		    {
@@ -493,4 +455,4 @@ This API is used to get candidates in bulk.
 
 **Response Parameters**
 
-	* Returns an array of candidate Object corresponding to the uuid's given.
+	* Returns an array of candidate Object corresponding to the uuid's given.SpringVerify REST API's

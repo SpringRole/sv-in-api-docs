@@ -46,7 +46,7 @@ sphinxcontrib-jsmath==1.0.1
 sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.4
 typed-ast==1.4.1
-urllib3==1.25.3
+urllib3==1.25.8
 virtualenv==20.0.21
 Werkzeug==0.15.6
 wrapt==1.11.2

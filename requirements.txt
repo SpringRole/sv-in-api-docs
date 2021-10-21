@@ -2,7 +2,7 @@ alabaster==0.7.12
 appdirs==1.4.4
 astroid==2.3.3
 autoenv==1.0.0
-Babel==2.8.0
+Babel==2.9.1
 boto3==1.12.24
 botocore==1.15.24
 certifi==2019.9.11

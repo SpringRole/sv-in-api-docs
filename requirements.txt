@@ -48,7 +48,7 @@ sphinxcontrib-serializinghtml==1.1.4
 typed-ast==1.4.1
 urllib3==1.25.3
 virtualenv==20.0.21
-Werkzeug==0.15.6
+Werkzeug==2.2.3
 wrapt==1.11.2
 zipp==3.1.0
 cloud_sptheme==1.10.0
